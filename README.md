@@ -1,1 +1,1 @@
-# practica-1-metodes-numerics
+# practica-1-metodes-numeric
