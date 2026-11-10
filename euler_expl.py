@@ -1,3 +1,4 @@
+from math import pi
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.animation import FuncAnimation
@@ -29,9 +30,6 @@ for o in range (1000):
     if T[o, 36] > T50:
         temps_optim=o-1
         break
-
-
-
 
 
 t = np.arange(1001)*0.25*delta_x**2
@@ -77,4 +75,24 @@ def actualitzar(moment):
     return line,
 
 animacio= FuncAnimation(fig3, actualitzar, frames=len(t), interval=10, blit=False)
+plt.show()
+
+
+
+# error:
+
+def funcio_analitica(x,t,q=1, beta=0, N=100):
+    resultat=[]
+    for a in x:
+        suma=0
+        for n in range(N):
+            suma=suma+ 4*q/((2*n+1)*np.pi)**3*np.sin((2*n+1)*np.pi*a)*(1-np.exp(-(2*n+1)**2*np.pi**2 *t))
+        resultat.append(beta+suma)
+    return np.array(resultat)
+
+T_analitica=funcio_analitica(x,t[1000])
+error=np.abs(T[1000, :]- T_analitica) # esto és l'error adimensional
+error_graus=error*Temperatura_0 
+
+plt.plot(x, error_graus)
 plt.show()
