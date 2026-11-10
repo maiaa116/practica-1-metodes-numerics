@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
+
+#metode analitic (no ens surt)
 n= 1000
 ri=0
 b=35.6
