@@ -8,34 +8,34 @@ c_v=3698
 k=0.56
 sigma=0.472
 t_0=0.02**2*c_v*ro/k
-Temperatura_0=t_0*c_v*ro/(sigma*((40/np.sqrt(2))/0.02)**2)
+Temperatura_0=t_0*(sigma*((40/np.sqrt(2))/0.02)**2)/(c_v*ro)
 
 x=np.linspace(0,1,n)
 delta_x=1/(n-1)
 s=np.linspace(1,1000,1000)
-#a temps zero tot a la mateix temperatura
-T_temps0=[]
-T_temps1=[]
-for i in range (n):
-    T_temps0.append(1)
 
-for t in s:
-    T_temps1 = [1]
+T = np.zeros((1001, n))
 
-    for i in range(1, n-1): #genera tots els punts en un determinat t
-        T_temps1.append(T_temps0[i] + r*(T_temps0[i+1]-2*T_temps0[i]+T_temps0[i-1])+0.01**2*r)
+for l in range(1000):
+    for i in range(1, n-1):
+        T[l+1, i] = T[l, i] + r*(T[l, i+1] - 2*T[l, i] + T[l, i-1]) + 0.25*delta_x**2
 
-    T_temps1.append(1)
+T50=(50-36.5)/Temperatura_0
+T80=(80-36.5)/Temperatura_0
+T_C = T*Temperatura_0 + 36.5
 
-    T_temps0 = T_temps1.copy()
+t = np.arange(1001)*0.25*delta_x**2
+X, Tt = np.meshgrid(x, t)
 
-print(T_temps1)
-print((273+50)/Temperatura_0)
-print((273+80)/Temperatura_0)
+fig = plt.figure(figsize=(8, 6))
+ax = fig.add_subplot(111, projection='3d')
+surf = ax.plot_surface(X, Tt, T_C, cmap='inferno', rstride=10, cstride=1, linewidth=0)
+ax.plot_surface(X, Tt, np.full_like(X, 50), color='cyan',  alpha=0.3, rstride=100, cstride=20, linewidth=0)
+ax.plot_surface(X, Tt, np.full_like(X, 80), color='lime', alpha=0.3, rstride=100, cstride=20, linewidth=0)
 
-plt.plot(x, T_temps1)
-plt.xlabel("x̂")
-plt.ylabel("T̂")
-plt.title("Perfil de temperatura a t̂ = 0.025 (Euler explícit, r = 0.25)")
-plt.grid()
+ax.set_xlabel("x̂")
+ax.set_ylabel("t̂")
+ax.set_zlabel("T (°C)")
+ax.set_title("Evolució de la temperatura (Euler explícit, r = 0.25)")
+fig.colorbar(surf, shrink=0.6, label="T (°C)")
 plt.show()
