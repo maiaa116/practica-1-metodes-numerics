@@ -1,20 +1,20 @@
 import matplotlib.pyplot as plt
 import numpy as np
-n=101
-r=0.25
+n=101 #nombre de punts en l'espai
+r=0.25 #parametre de t
 
 ro=1081
 c_v=3698
 k=0.56
 sigma=0.472
-t_0=0.02**2*c_v*ro/k
-Temperatura_0=t_0*(sigma*((40/np.sqrt(2))/0.02)**2)/(c_v*ro)
+t_0=0.02**2*c_v*ro/k #Calculem el temps inicial, amb els valors caracteristics
+Temperatura_0=t_0*(sigma*((40/np.sqrt(2))/0.02)**2)/(c_v*ro) #la temperatura caracterisitica
 
-x=np.linspace(0,1,n)
-delta_x=1/(n-1)
-s=np.linspace(1,1000,1000)
+x=np.linspace(0,1,n) #generar una llista de 0-1 amb n punts
+delta_x=1/(n-1)#calcular l'increment de x
+s=np.linspace(1,1000,1000) #aixo no ho fem servir pero es els numero de incraments que fa t
 
-T = np.zeros((1001, n))
+T = np.zeros((1001, n)) #creo una matriu plena de 0 de 1001x101
 
 for l in range(1000):
     for i in range(1, n-1):
