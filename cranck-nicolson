@@ -9,4 +9,12 @@ def crank-nicolson(N, ta, lamb, beta, q):
   #num pasos:
   n_pasos=int(np.round(ta/dt))
 
+	#condicions inicials:
+	#creem un vector amb N components (punts de la malla espaial) tots iguals a la condició inicial
+	f=np.full(N,beta,dtype=float)
+
+ 	# FONT DE CALOR:
+	# creem un vector q_int que injecti calor a tots els punts interiors en cada instant de temps
+	q_int=q(x[1:-1])
+
  
