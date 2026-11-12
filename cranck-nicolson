@@ -1,0 +1,11 @@
+import numpy as np
+
+def crank-nicolson(N, ta, lamb, beta, q):
+  #malla:
+  x=np.linspace(0,1,N)
+  dx=x[1]-x[0]
+  dt=lamb*(dx**2)
+
+  #num pasos:
+  n_pasos=int(np.round(ta/dt))
+
