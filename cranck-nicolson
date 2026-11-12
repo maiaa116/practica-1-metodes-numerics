@@ -9,3 +9,4 @@ def crank-nicolson(N, ta, lamb, beta, q):
   #num pasos:
   n_pasos=int(np.round(ta/dt))
 
+ 
