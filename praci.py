@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 #metode analitic (no ens surt)
-n= 1000
+'''n= 1000
 ri=0
 b=35.6
 q=1
@@ -23,3 +23,20 @@ for j in valors_x:
     
     
 print(llista_2)
+'''
+t=np.linspace(0,1000,n) 
+x=np.linspace()
+T_analitica = []
+
+for temps in t:
+    resultat = []
+    for a in x:
+        suma = 0
+        for n in range(N):
+            suma += 4*q/((2*n+1)*np.pi)**3 * np.sin((2*n+1)*np.pi*a) * (1-np.exp(-(2*n+1)**2*np.pi**2*temps))
+        resultat.append(beta+suma)
+
+    T_analitica.append(resultat)
+
+T_analitica = np.array(T_analitica)
+print(T_analitica)
