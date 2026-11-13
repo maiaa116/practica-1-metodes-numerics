@@ -1,4 +1,6 @@
 import numpy as np
+from scipy.linalg import solve_banded
+import matplotlib.pyplot as plt
 
 def crank-nicolson(N, ta, lamb, beta, q):
   #malla:
@@ -25,8 +27,20 @@ def crank-nicolson(N, ta, lamb, beta, q):
   ab[1, :]  =  1.0 + lamb       # diagonal principal, comença en la fila 1 i recorre totes les columnes
   ab[2, :-1] = -0.5 * lamb      # diagonal inferior, comença en la fila 2 i recorre del principi a la penultima columna
 
-  # fem el bucle temporal
+  # fem el bucle temporal que resol la part dreta de la igualtat
+  for _ in range(n_steps):
+    dreta = (0.5 * lmbda * f[:-2] + (1.0 - lmbda) * f[1:-1] +  0.5 * lmbda * f[2:] + dt * q_int) #incloses les condicions de contorn del passat
 
+    # com en la matriu A no hem introduit les condicions de contorn del futur, les passem a la dreta com:
+    dreta[0]  += 0.5 * lamb * beta # primer punt de la malla espaial
+    dreta[-1] += 0.5 * lamb * beta #ultim punt de la malla espaial
+
+    # resolem el sistema A*f_int^(n+1)=dreta per actualitzar el vector de temperatures a l'instant n+1
+    # utilitzem solve_banded(num de diagonals per sobre de la principal, per sota), dades del sistema lineal (matriu, vector)) que 
+    # resol un sistema del tipus Ax=b retornant x (per A=matriu de bandes)
+    f[1:-1] = solve_banded((1, 1), ab, dreta) # guardem totes les noves temperatures interiors
+
+return x, f
 
 
  
