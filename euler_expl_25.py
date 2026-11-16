@@ -13,7 +13,7 @@ k=0.56
 sigma=0.472
 t_0=0.02**2*c_v*ro/k #Calculem el temps inicial, amb els valors caracteristics
 Temperatura_0=t_0*(sigma*((40/np.sqrt(2))/0.02)**2)/(c_v*ro) #la temperatura caracterisitica
-
+print(Temperatura_0)
 x=np.linspace(0,1,n) #generar una llista de 0-1 amb n punts
 delta_x=1/(n-1)#calcular l'increment de x
 s=np.linspace(1,1000,1000) #aixo no ho fem servir pero es els numero de incraments que fa t
