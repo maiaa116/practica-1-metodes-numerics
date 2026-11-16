@@ -53,7 +53,7 @@ plt.ylabel("Temperatura (ºC)")
 plt.title(f"Temperatura a t =0.025s amb $\Delta t={r}\Delta x^2$")
 plt.show()
 
-'''
+
 ##PLA 3D DE LES TEMPERATURES I LES POSICIONS AMB PLANS PER VEURE ELS LIMITS
 fig = plt.figure(figsize=(8, 6))
 ax = fig.add_subplot(111, projection='3d')
@@ -124,4 +124,3 @@ error_graus=error*Temperatura_0
 plt.plot(x, error_graus)
 plt.title("Grafic error")
 plt.show()
-'''
