@@ -4,7 +4,7 @@ import numpy as np
 from matplotlib.animation import FuncAnimation
 n=101
 r=0.49
-
+''' hola'''
 ro=1081
 c_v=3698
 k=0.56
