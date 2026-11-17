@@ -23,7 +23,7 @@ T = np.zeros((1001, n)) #creo una matriu plena de 0 de 1001x101
 
 for l in range(1000): #recorem tots les insants de T (menys el 0???)
     for i in range(1, n-1): #recorem tots els punts de l'espai
-        T[l+1, i] = T[l, i] + r*(T[l, i+1] - 2*T[l, i] + T[l, i-1]) + 0.25*delta_x**2
+        T[l+1, i] = T[l, i] + r*(T[l, i+1] - 2*T[l, i] + T[l, i-1]) + r*delta_x**2
 
 T50=(50-36.5)/Temperatura_0
 T80=(80-36.5)/Temperatura_0
@@ -33,9 +33,9 @@ for o in range (1000):
     if T[o, 38] > T50: #mirem un rang molt gran i per quina temperatura el punt 36 dons superopr a T50
         temps_optim=o-1
         break
-temps_optim_real=temps_optim * 0.25 * delta_x**2 * t_0
+temps_optim_real=temps_optim * r * delta_x**2 * t_0
 
-t = np.arange(1001)*0.25*delta_x**2 #que fa el arange
+t = np.arange(1001)*r*delta_x**2 #que fa el arange
 t_real=t*t_0 #el convertim en real
 X, Tt = np.meshgrid(x, t)
 
@@ -51,7 +51,7 @@ plt.ylabel("Temperatura (ºC)")
 plt.title(f"Temperatura a t =0.025s amb $\Delta t={r}\Delta x^2$")
 plt.show()
 
-'''
+
 ##PLA 3D DE LES TEMPERATURES I LES POSICIONS AMB PLANS PER VEURE ELS LIMITS
 fig = plt.figure(figsize=(8, 6))
 ax = fig.add_subplot(111, projection='3d')
@@ -66,7 +66,7 @@ temps_real = t_real[temps_optim]
 ax.set_xlabel("x̂")
 ax.set_ylabel("t̂")
 ax.set_zlabel("T (°C)")
-ax.set_title("Evolució de la temperatura (Euler explícit, r = 0.25)")
+ax.set_title("Evolució de la temperatura (Euler explícit, r = 0.51)")
 fig.colorbar(surf, shrink=0.6, label="T (°C)")
 plt.show()
 
@@ -122,4 +122,3 @@ error_graus=error*Temperatura_0
 plt.plot(x, error_graus)
 plt.title("Grafic error")
 plt.show()
-'''

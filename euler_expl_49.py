@@ -23,7 +23,7 @@ T = np.zeros((1001, n)) #creo una matriu plena de 0 de 1001x101
 
 for l in range(1000): #recorem tots les insants de T (menys el 0???)
     for i in range(1, n-1): #recorem tots els punts de l'espai
-        T[l+1, i] = T[l, i] + r*(T[l, i+1] - 2*T[l, i] + T[l, i-1]) + 0.25*delta_x**2
+        T[l+1, i] = T[l, i] + r*(T[l, i+1] - 2*T[l, i] + T[l, i-1]) + r*delta_x**2
 
 T50=(50-36.5)/Temperatura_0
 T80=(80-36.5)/Temperatura_0
@@ -33,9 +33,9 @@ for o in range (1000):
     if T[o, 38] > T50: #mirem un rang molt gran i per quina temperatura el punt 36 dons superopr a T50
         temps_optim=o-1
         break
-temps_optim_real=temps_optim * 0.25 * delta_x**2 * t_0
+temps_optim_real=temps_optim * r * delta_x**2 * t_0
 
-t = np.arange(1001)*0.25*delta_x**2 #que fa el arange
+t = np.arange(1001)*r*delta_x**2 #que fa el arange
 t_real=t*t_0 #el convertim en real
 X, Tt = np.meshgrid(x, t)
 
