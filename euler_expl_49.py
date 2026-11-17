@@ -115,14 +115,13 @@ def funcio_analitica(x,t,q=1, beta=0, N=100):
     return np.array(resultat)
 
 #calculem ara per totes les x
-T_analitica=funcio_analitica(x,t[1000]) #calculem per totes les x amb una t determinada t posició 1000
-error=np.abs(T[1000, :]- T_analitica) # esto és l'error adimensional
+h=int(0.025/(r*delta_x**2))
+T_analitica=funcio_analitica(x,t[h]) #calculem per totes les x amb una t determinada t posició 1000
+error=np.abs(T[h, :]- T_analitica) # esto és l'error adimensional
 error_graus=error*Temperatura_0 
 with open("errors_expl_49.txt","w") as errors2:
     errors2.write(str(error_graus))
 
-'''
 plt.plot(x, error_graus)
 plt.title("Grafic error")
 plt.show()
-'''
