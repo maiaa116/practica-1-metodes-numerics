@@ -121,6 +121,9 @@ T_analitica=funcio_analitica(x,t[1000]) #calculem per totes les x amb una t dete
 error=np.abs(T[1000, :]- T_analitica) # esto és l'error adimensional
 error_graus=error*Temperatura_0 
 
+with open("errors_expl_25.txt","w") as errors1:
+    errors1.write(str(error_graus))
+
 plt.plot(x, error_graus)
 plt.title("Grafic error")
 plt.show()

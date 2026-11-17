@@ -100,7 +100,7 @@ def actualitzar(moment):
 animacio= FuncAnimation(fig3, actualitzar, frames=len(t), interval=10, blit=False)
 plt.title("Grafic Animació")
 plt.show()
-
+'''
 
 
 # error:
@@ -118,7 +118,10 @@ def funcio_analitica(x,t,q=1, beta=0, N=100):
 T_analitica=funcio_analitica(x,t[1000]) #calculem per totes les x amb una t determinada t posició 1000
 error=np.abs(T[1000, :]- T_analitica) # esto és l'error adimensional
 error_graus=error*Temperatura_0 
+with open("errors_expl_49.txt","w") as errors2:
+    errors2.write(str(error_graus))
 
+'''
 plt.plot(x, error_graus)
 plt.title("Grafic error")
 plt.show()

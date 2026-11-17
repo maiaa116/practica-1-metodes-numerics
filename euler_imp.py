@@ -80,8 +80,14 @@ T_analitica = funcio_analitica(x, temps)
 error = np.abs(TT[249, :] - T_analitica)
 error_graus = error * Temperatura_0
 
+with open("errors_impl_1.txt", "w") as errors3:
+    errors3.write(str(error_graus))
+
 erro2 = np.abs(TT2[499, :] - T_analitica)
 error_graus2 = erro2 * Temperatura_0
+
+with open("errors_impl_05.txt", "w") as errors4:
+    errors4.write(str(error_graus2))
 
 plt.plot(x, error_graus)
 plt.plot(x, error_graus2)
