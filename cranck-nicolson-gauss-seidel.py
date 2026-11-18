@@ -103,6 +103,37 @@ print(f"r = 0.5: {passos_05} passos, {it_05:.1f} iter/pas, "
 dif_max = np.max(np.abs(th_1 - th_05))
 print(f"Diferència màxima entre r=1.0 i r=0.5: {dif_max:.2e} ({dT0 * dif_max:.2e} K)")
 
+#calculem error absolut respecte a la solució analítica
+
+def funcio_analitica(x,t,q=1, beta=0, N=100):
+    resultat=[]
+    for a in x: #calculem totes les posicions, i calcula cada temperatura analitica
+        suma=0
+        for n in range(N):
+            suma=suma+ 4*q/((2*n+1)*np.pi)**3*np.sin((2*n+1)*np.pi*a)*(1-np.exp(-(2*n+1)**2*np.pi**2 *t))
+        resultat.append(beta+suma)
+    return np.array(resultat)
+
+T_analitica=funcio_analitica(x,t_a)
+error_t1=np.abs(th_1-T_analitica)
+error_graus_t1=error_t1*dT0
+with open("error_cranck_1.txt", "w") as output:
+    output.write(str(error_graus_t1))
+
+error_t05=np.abs(th_05-T_analitica)
+error_graus_t05=error_t05*dT0
+with open("error_cranck_05.txt", "w") as output:
+    output.write(str(error_graus_t05))
+
+'''
+#grafic errors
+plt.plot(x, error_t05, color="blue", alpha=0.4)
+plt.plot(x, error_t1, color="red")
+plt.show()
+
+'''
+
+
 # grafiquem el perfil de temperatures
 plt.figure(figsize=(7, 4))
 plt.plot(x * L * 100, T_1, label="Crank-Nicolson (r = 1.0)")

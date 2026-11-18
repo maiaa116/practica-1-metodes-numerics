@@ -34,20 +34,35 @@ file.close()
 for i in range(len(error_impl_05)):
     suma=suma+(error_impl_05[i])**2
 moduls_errors.append(np.sqrt(suma))
-'''
-suma=0
-file = open("errors_cranck_1.txt","r")
-errors_cranck_1 = np.fromstring(file.read().strip("[]").replace("\n", " "), sep=" ")
-file.close()
 
 suma=0
-file = open("errors_cranck_05.txt","r")
+file = open("error_cranck_1.txt","r")
+errors_cranck_1 = np.fromstring(file.read().strip("[]").replace("\n", " "), sep=" ")
+file.close()
+for i in range(len(errors_cranck_1)):
+    suma=suma+(errors_cranck_1[i])**2
+moduls_errors.append(np.sqrt(suma))
+
+suma=0
+file = open("error_cranck_05.txt","r")
 errors_cranck_05 = np.fromstring(file.read().strip("[]").replace("\n", " "), sep=" ")
 file.close()
-'''
+
+for i in range(len(errors_cranck_05)):
+    suma=suma+(errors_cranck_05[i])**2
+moduls_errors.append(np.sqrt(suma))
+
 
 metode=moduls_errors.index(np.min(moduls_errors))
 if metode==0:
     print("el millor mètode és Euler explícit amb r=0,25")
 if metode==1:
-    print
+    print("el millor mètode és Euler explícit amb r=0,49")
+if metode==2:
+    print("el millor mètode és Euler implícit amb r=1")
+if metode==3:
+    print("el millor mètode és Euler implícit amb r=0,5")
+if metode==4:
+    print("el millor mètode és Cranck-Nicholson amb r=1")
+if metode==5:
+    print("el millor mètode és Cranck-Nicholson amb r=0,5")
