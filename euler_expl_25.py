@@ -35,11 +35,11 @@ for o in range (1000):
     if T[o, 38] > T50: #mirem un rang molt gran i per quina temperatura el punt 36 dons superopr a T50
         temps_optim=o-1
         break
-temps_optim_real=temps_optim * 0.25 * delta_x**2 * t_0
 
 t = np.arange(1001)*0.25*delta_x**2 #que fa el arange
 t_real=t*t_0 #el convertim en real
-X, Tt = np.meshgrid(x, t)
+temps_real = t_real[temps_optim]
+X, Tt = np.meshgrid(x*2, t_real) #distància en cm i temps en segons
 
 
 ##GRAFIC QUE ENS DEMANEN
@@ -58,15 +58,14 @@ plt.show()
 fig = plt.figure(figsize=(8, 6))
 ax = fig.add_subplot(111, projection='3d')
 surf = ax.plot_surface(X, Tt, T_C, cmap='inferno', rstride=10, cstride=1, linewidth=0)
-ax.plot_surface(X, Tt, np.full_like(X, 50), color='cyan',  alpha=0.3, rstride=100, cstride=20, linewidth=0)
-ax.plot_surface(X, Tt, np.full_like(X, 80), color='lime', alpha=0.3, rstride=100, cstride=20, linewidth=0)
-temps_real = t_real[temps_optim]
+ax.plot_surface(X, Tt, np.full_like(X, 50), color='red',  alpha=0.25, rstride=100, cstride=20, linewidth=0)
+ax.plot_surface(X, Tt, np.full_like(X, 80), color='red', alpha=0.25, rstride=100, cstride=20, linewidth=0)
 
 
 
 #Diferentes temperatures (eix y) per diferentes posicions (eix x)
-ax.set_xlabel("x̂")
-ax.set_ylabel("t̂")
+ax.set_xlabel("Posició x (cm)")
+ax.set_ylabel("Temps t (s)")
 ax.set_zlabel("T (°C)")
 ax.set_title("Evolució de la temperatura (Euler explícit, r = 0.25)")
 fig.colorbar(surf, shrink=0.6, label="T (°C)")
@@ -75,13 +74,12 @@ plt.show()
 #Aquest no l'entenc
 plt.plot(x, T_C[temps_optim, :])
 plt.axhline(50, color='red', linewidth=0.8, alpha=0.4)
-plt.axhline(80, color='red', linewidth=0.8, alpha=0.4)
 plt.axvline(0.375,color='red', linewidth=0.8, alpha=0.4)
 plt.axvline(0.625, color='red', linewidth=0.8, alpha=0.4)
-plt.title(f"Grafic temps optim={float(temps_optim_real):.2f}s")
+plt.title(f"Grafic temps optim={float(temps_real):.2f}s")
 plt.show()
 
-#Gràfic animat: evolució temporal de la temperatura
+'''#Gràfic animat: evolució temporal de la temperatura
 fig3,ax3=plt.subplots()
 line,=ax3.plot(x,T_C[0,:])
 ax3.axhline(50, color='cyan', linestyle='--', label='50 °C')
@@ -101,7 +99,7 @@ def actualitzar(moment):
 
 animacio= FuncAnimation(fig3, actualitzar, frames=len(t), interval=10, blit=False)
 plt.title("Grafic Animació")
-plt.show()
+plt.show()'''
 
 
 
@@ -121,9 +119,20 @@ T_analitica=funcio_analitica(x,t[1000]) #calculem per totes les x amb una t dete
 error=np.abs(T[1000, :]- T_analitica) # esto és l'error adimensional
 error_graus=error*Temperatura_0 
 
+'''#calculem temps òptim amb la solució analítica (en proces)
+for p in range(10000):
+    resultat_graus= (funcio_analitica(x[38],p)-36.5)/Temperatura_0
+    if resultat_graus>T50:
+        posicio_analitica=p
+        break'''
+
+print(posicio_analitica)
+
+
 with open("errors_expl_25.txt","w") as errors1:
     errors1.write(str(error_graus))
 
-plt.plot(x, error_graus)
+'''plt.plot(x, error_graus)
 plt.title("Grafic error")
 plt.show()
+'''
