@@ -4,7 +4,6 @@ import numpy as np
 from matplotlib.animation import FuncAnimation
 n=101
 r=0.49
-''' hola'''
 ro=1081
 c_v=3698
 k=0.56
@@ -105,7 +104,7 @@ plt.show()
 
 # error:
 
-def funcio_analitica(x,t,q=1, beta=0, N=100):
+def funcio_analitica(x,t,q=1, beta=0, N=1000):
     resultat=[]
     for a in x: #calculem totes les posicions, i calcula cada temperatura analitica
         suma=0
@@ -116,7 +115,7 @@ def funcio_analitica(x,t,q=1, beta=0, N=100):
 
 #calculem ara per totes les x
 h=int(0.025/(r*delta_x**2))
-T_analitica=funcio_analitica(x,t[h]) #calculem per totes les x amb una t determinada t posició 1000
+T_analitica=funcio_analitica(x,0.025) #calculem per totes les x amb una t determinada t posició 1000
 error=np.abs(T[h, :]- T_analitica) # esto és l'error adimensional
 error_graus=error*Temperatura_0 
 with open("errors_expl_49.txt","w") as errors2:
