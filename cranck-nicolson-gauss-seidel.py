@@ -125,13 +125,11 @@ error_graus_t05=error_t05*dT0
 with open("error_cranck_05.txt", "w") as output:
     output.write(str(error_graus_t05))
 
-'''
+
 #grafic errors
 plt.plot(x, error_t05, color="blue", alpha=0.4)
 plt.plot(x, error_t1, color="red")
 plt.show()
-
-'''
 
 
 # grafiquem el perfil de temperatures
