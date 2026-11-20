@@ -1,6 +1,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+plt.rcParams.update({
+    "axes.titlesize": 14,   # títol
+    "axes.labelsize": 14,   # eixos X i Y
+    "xtick.labelsize": 12,  # números eix X
+    "ytick.labelsize": 12,  # números eix Y
+    "legend.fontsize": 12    # llegenda
+})
+
 # La funcio a resoldre es:
 # (1 + 2*(r/2)) θ_i^{n+1} - (r/2)(θ_{i-1}^{n+1} + θ_{i+1}^{n+1}) = (1 - r) θ_i^n + (r/2)(θ_{i-1}^n + θ_{i+1}^n) + Δt̂
 
@@ -133,12 +141,13 @@ plt.show()
 
 
 # grafiquem el perfil de temperatures
-plt.figure(figsize=(7, 4))
+plt.figure(figsize=(8, 6))
 plt.plot(x * L * 100, T_1, label="Crank-Nicolson (r = 1.0)")
 plt.plot(x * L * 100, T_05, "--", label="Crank-Nicolson (r = 0.5)")
+plt.axvspan(0.75, 1.25, color='blue', alpha=0.2, label="Regió malalta (0.5 cm)")
+plt.axhline(50, color="orange", linestyle=":", label="50 ºC (màxim regió sana)")
 plt.xlabel("Posició x (cm)")
 plt.ylabel("Temperatura (ºC)")
 plt.legend()
-plt.grid(True)
 plt.tight_layout()
 plt.show()

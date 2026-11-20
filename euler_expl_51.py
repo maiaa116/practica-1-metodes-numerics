@@ -2,6 +2,20 @@ from math import pi
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.animation import FuncAnimation
+
+
+plt.rcParams.update({
+    "axes.titlesize": 14,   
+    "axes.labelsize": 14,   
+    "xtick.labelsize": 12,  
+    "ytick.labelsize": 12,  
+    "legend.fontsize": 12    
+})
+
+
+
+
+
 n=101
 r=0.51
 

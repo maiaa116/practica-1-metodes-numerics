@@ -2,6 +2,16 @@ from math import pi
 import matplotlib.pyplot as plt
 import numpy as np
 
+plt.rcParams.update({
+    "axes.titlesize": 14,  
+    "axes.labelsize": 14,  
+    "xtick.labelsize": 12,  
+    "ytick.labelsize": 12, 
+    "legend.fontsize": 12   
+})
+
+
+
 ta = 0.025
 Num=250
 deltax=0.01

@@ -7,6 +7,14 @@ from matplotlib.animation import FuncAnimation
 n=101
 r=0.25
 
+plt.rcParams.update({
+    "axes.titlesize": 14,   
+    "axes.labelsize": 14,   
+    "xtick.labelsize": 12,  
+    "ytick.labelsize": 12,  
+    "legend.fontsize": 12    
+})
+
 ro=1081
 c_v=3698
 k=0.56
