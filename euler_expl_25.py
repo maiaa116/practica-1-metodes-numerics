@@ -113,7 +113,7 @@ plt.show()'''
 
 # error:
 
-def funcio_analitica(x,t,q=1, beta=0, N=100):
+def funcio_analitica(x,t,q=1, beta=0, N=1000):
     resultat=[]
     for a in x: #calculem totes les posicions, i calcula cada temperatura analitica
         suma=0
@@ -134,13 +134,12 @@ for p in range(10000):
         posicio_analitica=p
         break'''
 
-print(posicio_analitica)
+'''print(posicio_analitica)'''
 
 
 with open("errors_expl_25.txt","w") as errors1:
     errors1.write(str(error_graus))
 
-'''plt.plot(x, error_graus)
+plt.plot(x, error_graus)
 plt.title("Grafic error")
 plt.show()
-'''
