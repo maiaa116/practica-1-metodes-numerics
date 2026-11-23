@@ -56,7 +56,6 @@ h=int(0.025/(r*delta_x**2))#fila que correspont hat(t)=0.025
 plt.plot(x*2, T[h, :]*Temperatura_0 + 36.5, color='green', label=r"Explícit, $r=0.51$")
 plt.axvspan(0.375*2, 0.625*2, color='blue', alpha=0.2, label=r"Regió malalta")
 plt.axhline(50, color='red', linewidth=0.8, alpha=0.4, label="50 ºC")
-plt.axhline(80, color='red', linewidth=0.8, alpha=0.4, label="80 °C")
 plt.xlabel("Posició x(cm)")
 plt.ylabel("Temperatura (ºC)")
 plt.title(f"Temperatura a t = 71s amb $\Delta t={r}\Delta x^2$")
