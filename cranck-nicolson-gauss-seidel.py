@@ -134,16 +134,7 @@ with open("error_cranck_05.txt", "w") as output:
     output.write(str(error_graus_t05))
 
 
-#grafic errors
-plt.figure(figsize=(8, 6))
-plt.plot(x * L * 100, error_t1, color="green", label=r"Crank–Nicolson, $r=1$")
-plt.plot(x * L * 100, error_t05, color="darkorange", ls="--", label=r"Crank–Nicolson, $r=0.5$")
-plt.xlabel("Posició x (cm)")
-plt.ylabel("Error absolut (K)")
-plt.title("Error respecte de l'analítica a t = 0,025s")
-plt.legend()
-plt.tight_layout()
-plt.show()
+
 
 # grafiquem el perfil de temperatures
 plt.figure(figsize=(8, 6))
@@ -151,9 +142,20 @@ plt.plot(x * L * 100, T_1, label="Crank-Nicolson (r = 1.0)")
 plt.plot(x * L * 100, T_05, "--", label="Crank-Nicolson (r = 0.5)")
 plt.axvspan(0.75, 1.25, color='blue', alpha=0.2, label="Regió malalta (0.5 cm)")
 plt.axhline(50, color="darkorange", linestyle=":", label="50 ºC (màxim regió sana)")
-plt.title(f"Perfil de temperatura a t = 0,025s")
+plt.title(f"Perfil de temperatura a t = 71 s")
 plt.xlabel("Posició x (cm)")
 plt.ylabel("Temperatura (ºC)")
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+#grafic errors
+plt.figure(figsize=(8, 6))
+plt.plot(x * L * 100, error_graus_t1 * 1e3, color="green", label=r"Crank–Nicolson, $r=1$")
+plt.plot(x * L * 100, error_graus_t05 * 1e3, color="darkorange", ls="--", label=r"Crank–Nicolson, $r=0.5$")
+plt.xlabel("Posició x (cm)")
+plt.ylabel(r"Error absolut ($10^{-3}$ K)")
+plt.title(r"Error respecte de l'analítica a t = 71 s")
 plt.legend()
 plt.tight_layout()
 plt.show()
