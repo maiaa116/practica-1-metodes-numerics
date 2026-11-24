@@ -57,7 +57,7 @@ plt.axvspan(0.375*2, 0.625*2, color='blue', alpha=0.2, label=r"Regió malalta")
 plt.axhline(50, color='red', linewidth=0.8, alpha=0.4, label="50 ºC")
 plt.xlabel("Posició x(cm)")
 plt.ylabel("Temperatura (ºC)")
-plt.title(f"Temperatura a t =0.025s amb $\Delta t={r}\Delta x^2$")
+#plt.title(f"Temperatura a t =0.025s amb $\Delta t={r}\Delta x^2$")
 plt.legend()
 plt.show()
 
