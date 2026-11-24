@@ -2,6 +2,17 @@ from math import pi
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.animation import FuncAnimation
+
+
+plt.rcParams.update({
+    "axes.titlesize": 14,   
+    "axes.labelsize": 14,   
+    "xtick.labelsize": 12,  
+    "ytick.labelsize": 12,  
+    "legend.fontsize": 10    
+})
+
+
 n=101
 r=0.51
 
@@ -41,14 +52,14 @@ X, Tt = np.meshgrid(x, t)
 
 
 ##GRAFIC QUE ENS DEMANEN
-h=int(0.025/(r*delta_x**2))#fila que correspont t=0.025
-plt.plot(x*2, T[h, :]*Temperatura_0 + 36.5)
-plt.axvspan(0.375*2, 0.625*2, color='blue', alpha=0.2)
-plt.axhline(50, color='red', linewidth=0.8, alpha=0.4)
-plt.axhline(80, color='red', linewidth=0.8, alpha=0.4)
+h=round(0.025/(r*delta_x**2))#fila que correspont hat(t)=0.025
+plt.plot(x*2, T[h, :]*Temperatura_0 + 36.5, color='green', label=r"Explícit, $r=0.51$")
+plt.axvspan(0.375*2, 0.625*2, color='blue', alpha=0.2, label=r"Regió malalta")
+plt.axhline(50, color='red', linewidth=0.8, alpha=0.4, label="50 ºC")
 plt.xlabel("Posició x(cm)")
 plt.ylabel("Temperatura (ºC)")
-plt.title(f"Temperatura a t =0.025s amb $\Delta t={r}\Delta x^2$")
+#plt.title(f"Temperatura a t = 71s amb $\Delta t={r}\Delta x^2$")
+plt.legend(loc="lower right")  
 plt.show()
 
 
@@ -105,20 +116,24 @@ plt.show()
 
 # error:
 
-def funcio_analitica(x,t,q=1, beta=0, N=100):
+def funcio_analitica(x,t,q=1, beta=0, N=1000):
     resultat=[]
     for a in x: #calculem totes les posicions, i calcula cada temperatura analitica
         suma=0
-        for n in range(N):
-            suma=suma+ 4*q/((2*n+1)*np.pi)**3*np.sin((2*n+1)*np.pi*a)*(1-np.exp(-(2*n+1)**2*np.pi**2 *t))
+        for m in range(N):
+            suma=suma+ 4*q/((2*m+1)*np.pi)**3*np.sin((2*m+1)*np.pi*a)*(1-np.exp(-(2*m+1)**2*np.pi**2 *t))
         resultat.append(beta+suma)
     return np.array(resultat)
 
 #calculem ara per totes les x
-T_analitica=funcio_analitica(x,t[1000]) #calculem per totes les x amb una t determinada t posició 1000
-error=np.abs(T[1000, :]- T_analitica) # esto és l'error adimensional
-error_graus=error*Temperatura_0 
+T_analitica=funcio_analitica(x,t[h]) #calculem per totes les x amb una t determinada t posició 1000
+error_graus=np.abs(T[h, :]- T_analitica)*Temperatura_0  
 
-plt.plot(x, error_graus)
-plt.title("Grafic error")
+
+plt.plot(x*2, error_graus, color='green', label=r"Explícit, $r={0{,}51}$")
+plt.xlabel("Posició $x$ (cm)")
+plt.ylabel("Error absolut (K)")
+plt.title(r"Error respecte de l'analítica a t$\approx$ 71 s")
+plt.legend()
 plt.show()
+

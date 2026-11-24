@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
+
 
 
 #metode analitic (no ens surt)
@@ -45,3 +45,4 @@ for temps in t:
 
 T_analitica = np.array(T_analitica)
 print(T_analitica)
+

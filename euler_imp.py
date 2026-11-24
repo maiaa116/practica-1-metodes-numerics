@@ -2,6 +2,16 @@ from math import pi
 import matplotlib.pyplot as plt
 import numpy as np
 
+plt.rcParams.update({
+    "axes.titlesize": 16,   
+    "axes.labelsize": 15,   
+    "xtick.labelsize": 12,  
+    "ytick.labelsize": 12,  
+    "legend.fontsize": 12   
+})
+
+
+
 ta = 0.025
 Num=250
 deltax=0.01
@@ -51,16 +61,16 @@ TT2 = np.array(TT2)
 
 
 
+plt.figure(figsize=(8, 6))
 
-
-plt.plot(x*2,TT[dt-1,:]*Temperatura_0 + 36.5,color="green",alpha=0.6, label=r"Implícit, $r=1$")   # <-- label
-plt.plot(x*2,TT2[dt2-1,:]*Temperatura_0 + 36.5,color="red", alpha=0.8, linestyle= "--", label=r"Implícit, $r=0.5$")   # <-- label
+plt.plot(x*2,TT[dt-1,:]*Temperatura_0 + 36.5,color="red", label=r"Implícit, $r=1$")   # <-- label
+plt.plot(x*2,TT2[dt2-1,:]*Temperatura_0 + 36.5, alpha=0.4, linestyle= "--", label=r"Implícit, $r=0.5$")   # <-- label
 plt.axvspan(0.375*2, 0.625*2, color='blue', alpha=0.2, label="Teixit malalt (0.5 cm)")   # <-- label
 plt.axhline(50, color='red', linewidth=0.8, alpha=0.4, label="50 °C")   # <-- label
-#plt.axhline(80, color='red', linewidth=0.8, alpha=0.4, label="80 °C")   # <-- label
+plt.axhline(80, color='red', linewidth=0.8, alpha=0.4, label="80 °C")   # <-- label
 plt.xlabel("Posició x (cm)")
 plt.ylabel("Temperatura (ºC)")
-plt.title(f"Perfil de temperatura a t = 71s")   # <-- títol
+plt.title(f"Perfil de temperatura a t = 0,025s")   # <-- títol
 plt.legend()   # <-- llegenda
 plt.show()
 
@@ -81,13 +91,13 @@ T_analitica = funcio_analitica(x, temps)
 error = np.abs(TT[249, :] - T_analitica)
 error_graus = error * Temperatura_0
 
+with open("errors_impl_1.txt", "w") as errors3:
+    errors3.write(str(error_graus))
+
 erro2 = np.abs(TT2[499, :] - T_analitica)
 error_graus2 = erro2 * Temperatura_0
 
-plt.plot(x*2, error_graus*10**3, color="green", alpha=0.6, label=r"Implícit, $r=1$")
-plt.plot(x*2, error_graus2*10**3, color="red", alpha=0.8, linestyle="--", label=r"Implícit, $r=0.5$")
-plt.xlabel("Posició x (cm)")
-plt.ylabel(r"Error absolut (ºCx$10^{-3}$)")
-plt.title("Error respecte la solució analítica a t = 71s")
-plt.legend()
+plt.plot(x, error_graus)
+plt.plot(x, error_graus2)
+plt.title("Gràfic error")
 plt.show()
