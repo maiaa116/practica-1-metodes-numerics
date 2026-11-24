@@ -8,13 +8,7 @@ from matplotlib.colors import LinearSegmentedColormap
 n=101
 r=0.25
 
-plt.rcParams.update({
-    "axes.titlesize": 16,   
-    "axes.labelsize": 14,   
-    "xtick.labelsize": 12,  
-    "ytick.labelsize": 12,  
-    "legend.fontsize": 12    
-})
+plt.rcParams.update({"axes.titlesize": 16, "axes.labelsize": 15, "xtick.labelsize": 12, "ytick.labelsize": 12, "legend.fontsize": 12})
 
 ro=1081
 c_v=3698
@@ -61,6 +55,7 @@ plt.xlabel("Posició x(cm)")
 plt.ylabel("Temperatura (ºC)")
 #plt.title(f"Temperatura a t =0.025s amb $\Delta t={r}\Delta x^2$")
 plt.legend()
+plt.tick_params(direction="in", top=True, right=True)
 plt.show()
 
 

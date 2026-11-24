@@ -2,15 +2,7 @@ from math import pi
 import matplotlib.pyplot as plt
 import numpy as np
 
-plt.rcParams.update({
-    "axes.titlesize": 16,   
-    "axes.labelsize": 15,   
-    "xtick.labelsize": 12,  
-    "ytick.labelsize": 12,  
-    "legend.fontsize": 12   
-})
-
-
+plt.rcParams.update({"axes.titlesize": 16, "axes.labelsize": 15, "xtick.labelsize": 12, "ytick.labelsize": 12, "legend.fontsize": 12})
 
 ta = 0.025
 Num=250

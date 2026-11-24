@@ -4,13 +4,7 @@ import numpy as np
 from matplotlib.animation import FuncAnimation
 
 
-plt.rcParams.update({
-    "axes.titlesize": 14,   
-    "axes.labelsize": 14,   
-    "xtick.labelsize": 12,  
-    "ytick.labelsize": 12,  
-    "legend.fontsize": 10    
-})
+plt.rcParams.update({"axes.titlesize": 16, "axes.labelsize": 15, "xtick.labelsize": 12, "ytick.labelsize": 12, "legend.fontsize": 12})
 
 
 n=101
@@ -59,7 +53,8 @@ plt.axhline(50, color='red', linewidth=0.8, alpha=0.4, label="50 ºC")
 plt.xlabel("Posició x(cm)")
 plt.ylabel("Temperatura (ºC)")
 #plt.title(f"Temperatura a t = 71s amb $\Delta t={r}\Delta x^2$")
-plt.legend(loc="lower right")  
+plt.legend(loc="lower right") 
+plt.tick_params(direction="in", top=True, right=True) 
 plt.show()
 
 
@@ -88,6 +83,7 @@ plt.axhline(80, color='red', linewidth=0.8, alpha=0.4)
 plt.axvline(0.375,color='red', linewidth=0.8, alpha=0.4)
 plt.axvline(0.625, color='red', linewidth=0.8, alpha=0.4)
 plt.title(f"Grafic temps optim={float(temps_optim_real):.2f}s")
+plt.tick_params(direction="in", top=True, right=True)
 plt.show()
 
 #Gràfic animat: evolució temporal de la temperatura
@@ -135,5 +131,6 @@ plt.xlabel("Posició $x$ (cm)")
 plt.ylabel("Error absolut (K)")
 plt.title(r"Error respecte de l'analítica a t$\approx$ 71 s")
 plt.legend()
+plt.tick_params(direction="in", top=True, right=True)
 plt.show()
 
