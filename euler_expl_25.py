@@ -65,9 +65,8 @@ ax = fig.add_subplot(111, projection='3d')
 surf = ax.plot_surface(X, Tt, T_C, cmap='inferno', rstride=10, cstride=1, linewidth=0)
 ax.plot_surface(X, Tt, np.full_like(X, 50), color='red',  alpha=0.25, rstride=100, cstride=20, linewidth=0)
 ax.plot_surface(X, Tt, np.full_like(X, 80), color='red', alpha=0.25, rstride=100, cstride=20, linewidth=0)
-
-
-
+ax.set_xticks([0, 0.5, 1, 1.5, 2])
+ax.set_yticks([0, 20, 40, 60])
 #Diferentes temperatures (eix y) per diferentes posicions (eix x)
 ax.set_xlabel("Posició x (cm)")
 ax.set_ylabel("Temps t (s)")
@@ -75,6 +74,35 @@ ax.set_zlabel("T (°C)")
 ax.set_title("Evolució de la temperatura (Euler explícit, r = 0.25)")
 fig.colorbar(surf, shrink=0.6, label="T (°C)")
 plt.show()
+
+fig = plt.figure(figsize=(8, 6))
+ax = fig.add_subplot(111, projection='3d')
+surf = ax.plot_surface(X, Tt, T_C, cmap='inferno', rstride=10, cstride=1, linewidth=0)
+ax.plot_surface(X, Tt, np.full_like(X, 50), color='red',  alpha=0.25, rstride=100, cstride=20, linewidth=0)
+ax.plot_surface(X, Tt, np.full_like(X, 80), color='red', alpha=0.25, rstride=100, cstride=20, linewidth=0)
+ax.set_xticks([0, 0.5, 1, 1.5, 2])
+ax.set_yticks([0, 20, 40, 60])
+ax.set_zticks([40, 60, 80])
+ax.set_xlabel("x (cm)")
+ax.set_ylabel("t (s)")
+#ax.set_zlabel("T (°C)")
+#ax.set_title("Evolució de la temperatura (Euler explícit, r = 0.25)")
+fig.colorbar(surf, shrink=0.6, label="T (°C)")
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #buscar temps òptim 
 
