@@ -4,7 +4,7 @@ import numpy as np
 from matplotlib.animation import FuncAnimation
 
 plt.rcParams.update({
-    "axes.titlesize": 14,   
+    "axes.titlesize": 16,   
     "axes.labelsize": 14,   
     "xtick.labelsize": 12,  
     "ytick.labelsize": 12,  
