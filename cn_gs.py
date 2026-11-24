@@ -109,7 +109,7 @@ print(f"r = 0.5: {passos_05} passos, {it_05:.1f} iter/pas, "
 
 # comparem les dues solucions numeriques entre si
 dif_max = np.max(np.abs(th_1 - th_05))
-print(f"Diferència màxima entre r=1.0 i r=0.5: {dif_max:.2e} ({dT0 * dif_max:.2e} K)")
+print(f"Diferència màxima entre r=1.0 i r=0.5: {dif_max:.2e} ({dT0 * dif_max:.2e} ºC)")
 
 #calculem error absolut respecte a la solució analítica
 
@@ -142,7 +142,7 @@ plt.plot(x * L * 100, T_1, label="Crank-Nicolson (r = 1.0)")
 plt.plot(x * L * 100, T_05, "--", label="Crank-Nicolson (r = 0.5)")
 plt.axvspan(0.75, 1.25, color='blue', alpha=0.2, label="Regió malalta (0.5 cm)")
 plt.axhline(50, color="darkorange", linestyle=":", label="50 ºC (màxim regió sana)")
-plt.title(f"Perfil de temperatura a t = 71 s")
+#plt.title(f"Perfil de temperatura a t = 71 s")
 plt.xlabel("Posició x (cm)")
 plt.ylabel("Temperatura (ºC)")
 plt.legend()
@@ -154,8 +154,8 @@ plt.figure(figsize=(8, 6))
 plt.plot(x * L * 100, error_graus_t1 * 1e3, color="green", label=r"Crank–Nicolson, $r=1$")
 plt.plot(x * L * 100, error_graus_t05 * 1e3, color="darkorange", ls="--", label=r"Crank–Nicolson, $r=0.5$")
 plt.xlabel("Posició x (cm)")
-plt.ylabel(r"Error absolut ($10^{-3}$ K)")
-plt.title(r"Error respecte de l'analítica a t = 71 s")
+plt.ylabel(r"Error absolut ($10^{-3}$ ºC)")
+#plt.title(r"Error respecte de l'analítica a t = 71 s")
 plt.legend()
 plt.tight_layout()
 plt.show()
