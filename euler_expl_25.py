@@ -4,6 +4,7 @@ import numpy as np
 n=101 #nombre de punts en l'espai
 r=0.25 #parametre de t
 from matplotlib.animation import FuncAnimation
+from matplotlib.colors import LinearSegmentedColormap
 n=101
 r=0.25
 
@@ -47,6 +48,7 @@ for o in range (1000):
 t = np.arange(1001)*0.25*delta_x**2 #que fa el arange
 t_real=t*t_0 #el convertim en real
 temps_real = t_real[temps_optim]
+print(temps_real)
 X, Tt = np.meshgrid(x*2, t_real) #distància en cm i temps en segons
 
 
@@ -79,34 +81,17 @@ ax.set_title("Evolució de la temperatura (Euler explícit, r = 0.25)")
 fig.colorbar(surf, shrink=0.6, label="T (°C)")
 plt.show()
 
-#buscar temps òptim
-plt.plot(x, T_C[temps_optim, :])
-plt.axhline(50, color='red', linewidth=0.8, alpha=0.4)
-plt.axvline(0.375,color='red', linewidth=0.8, alpha=0.4)
-plt.axvline(0.625, color='red', linewidth=0.8, alpha=0.4)
+#buscar temps òptim 
+
+plt.figure(figsize=(6.5, 5))
+plt.plot(x * 2, T_C[temps_optim, :], color="green")
+plt.axvspan(0.375 * 2, 0.625 * 2, color='blue', alpha=0.2, label=r"Regió malalta")
+plt.axhline(50, color='red', linewidth=0.8, alpha=0.4, label="50 ºC")
+plt.xlabel("Posició x (cm)")
+plt.ylabel("Temperatura (ºC)")
+plt.legend()
+plt.tight_layout()
 plt.show()
-
-'''#Gràfic animat: evolució temporal de la temperatura
-fig3,ax3=plt.subplots()
-line,=ax3.plot(x,T_C[0,:])
-ax3.axhline(50, color='cyan', linestyle='--', label='50 °C')
-ax3.axhline(80, color='green', linestyle='--', label='80 °C')
-
-ax3.set_xlim(0, 1)
-ax3.set_ylim(36.5, 100)
-ax3.set_xlabel("Posició x̂")
-ax3.set_ylabel("Temperatura (°C)")
-ax3.legend()
-#funcio d'animació
-def actualitzar(moment):
-    line.set_ydata(T_C[moment, :])
-    percentatge = 100 * moment / (len(t) - 1)
-    ax3.set_title(f"Progrés: {percentatge:.1f}%")
-    return line,
-
-animacio= FuncAnimation(fig3, actualitzar, frames=len(t), interval=10, blit=False)
-plt.title("Grafic Animació")
-plt.show()'''
 
 
 
@@ -126,14 +111,7 @@ T_analitica=funcio_analitica(x,t[1000]) #calculem per totes les x amb una t dete
 error=np.abs(T[1000, :]- T_analitica) # esto és l'error adimensional
 error_graus=error*Temperatura_0 
 
-'''#calculem temps òptim amb la solució analítica (en proces)
-for p in range(10000):
-    resultat_graus= (funcio_analitica(x[38],p)-36.5)/Temperatura_0
-    if resultat_graus>T50:
-        posicio_analitica=p
-        break'''
 
-'''print(posicio_analitica)'''
 
 
 with open("errors_expl_25.txt","w") as errors1:
@@ -142,3 +120,103 @@ with open("errors_expl_25.txt","w") as errors1:
 plt.plot(x, error_graus)
 plt.title("Grafic error")
 plt.show()
+
+'''# error temps optim
+T_analitica_optim = funcio_analitica(x, t[temps_optim])
+error_optim = np.abs(T[temps_optim, :] - T_analitica_optim)
+error_graus_optim = error_optim * Temperatura_0
+
+plt.figure(figsize=(6.5, 5))
+plt.plot(x * 2, error_graus_optim / 1e-4, color="green")
+plt.xlabel("Posició x (cm)")
+plt.ylabel("Error absolut ($10^{-4}$ ºC)")
+
+plt.tight_layout()
+plt.show()
+'''
+#solució analítica per al porblema i comapracio amb la trobada amb el mètode
+
+for o in range(len(t)):
+    T_analitica_punt = funcio_analitica([x[38]], t[o])[0]
+    if T_analitica_punt > T50:
+        temps_optim_analitic = o - 1
+        break
+
+temps_real_analitic = t_real[temps_optim_analitic]
+error_temps = abs(temps_real - temps_real_analitic)
+
+print("Temps òptim numèric (s):", temps_real)
+print("Temps òptim analític (s):", temps_real_analitic)
+print("Error del temps (s):", error_temps)
+print("Temps òptim adimensional:", t[temps_optim])
+
+T_analitic_t_analitic_C = funcio_analitica(x, t[temps_optim_analitic]) * Temperatura_0 + 36.5
+T_euler_t_euler_C = T_C[temps_optim, :]
+error_temps_C = np.abs(T_analitic_t_analitic_C - T_euler_t_euler_C)
+
+plt.figure(figsize=(6.5, 5))
+plt.plot(x * 2, error_temps_C / 1e-4, color="green")
+plt.xlabel("Posició x (cm)")
+plt.ylabel("Error absolut ($10^{-4}$ ºC)")
+plt.tight_layout()
+plt.show()
+
+#animacions si
+pas = max(1, len(t_real) // 200)
+indexs = range(0, len(t_real), pas)
+
+# 1 (com avança la funcio)
+fig1, ax1 = plt.subplots(figsize=(7, 4.5))
+linia, = ax1.plot(x * 2, T_C[0, :], color="green", linewidth=1.4, label="Temperatura T(x, t)")
+ax1.axhline(50, color="red", linestyle="--", linewidth=1, label="50 °C")
+ax1.axhline(80, color="red", linestyle="--", linewidth=1, label="80 °C")
+ax1.set_xlim(0, 2)
+ax1.set_ylim(35, max(85, np.max(T_C) * 1.05))
+ax1.set_xlabel("Posició x (cm)")
+ax1.set_ylabel("Temperatura (°C)")
+ax1.legend(loc="upper left", fontsize=9)
+ax1.grid(False)
+
+titol1 = ax1.set_title("Evolució de la temperatura  |  t = 0.00 s", fontsize=12, pad=12)
+fig1.subplots_adjust(top=0.86)
+
+def actualitzar_funcio(k):
+    linia.set_ydata(T_C[k, :])
+    titol1.set_text(f"Evolució de la temperatura  |  t = {t_real[k]:.2f} s")
+    return linia, titol1
+
+anim_funcio = FuncAnimation(fig1, actualitzar_funcio, frames=indexs, interval=100, blit=False)
+plt.tight_layout(rect=[0, 0, 1, 0.92])
+plt.show()
+anim_funcio.save("animacio_temperatura.gif", writer="pillow", fps=15, dpi=150)
+
+# 2(heatmap)
+blau_roig = LinearSegmentedColormap.from_list("blau_roig", ["blue", "red"])
+
+fig2, ax2 = plt.subplots(figsize=(4.5, 4.5))
+mapa = ax2.imshow(
+    T_C[0:1, :].T,
+    aspect="auto",
+    origin="lower",
+    extent=[0, 1, 0, 2],
+    cmap=blau_roig,
+    vmin=36.5,
+    vmax=np.max(T_C),
+)
+ax2.set_xticks([])
+ax2.set_ylabel("Posició x (cm)")
+ax2.grid(False)
+fig2.colorbar(mapa, ax=ax2, label="T (°C)")
+
+titol2 = ax2.set_title("Mapa tèrmic  |  t = 0.00 s", fontsize=11, pad=12)
+fig2.subplots_adjust(top=0.86)
+
+def actualitzar_heatmap(k):
+    mapa.set_data(T_C[k:k+1, :].T)
+    titol2.set_text(f"Mapa tèrmic  |  t = {t_real[k]:.2f} s")
+    return mapa, titol2
+
+anim_heatmap = FuncAnimation(fig2, actualitzar_heatmap, frames=indexs, interval=100, blit=False)
+plt.tight_layout(rect=[0, 0, 1, 0.92])
+plt.show()
+anim_heatmap.save("animacio_heatmap.gif", writer="pillow", fps=15, dpi=150)
