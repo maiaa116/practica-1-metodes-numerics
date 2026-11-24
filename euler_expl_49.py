@@ -79,7 +79,6 @@ ax.set_title("Evolució de la temperatura (Euler explícit, r = 0.25)")
 fig.colorbar(surf, shrink=0.6, label="T (°C)")
 plt.show()
 
-#Aquest no l'entenc
 plt.plot(x, T_C[temps_optim, :])
 plt.axhline(50, color='red', linewidth=0.8, alpha=0.4)
 plt.axhline(80, color='red', linewidth=0.8, alpha=0.4)

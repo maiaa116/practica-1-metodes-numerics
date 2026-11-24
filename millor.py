@@ -70,7 +70,7 @@ if metode==5:
     print("el millor mètode és Cranck-Nicholson amb r=0,5")
 
 
-plt.figure(figsize=(8, 5))
+plt.figure(figsize=(6.5, 5.8))
 x_cm = np.linspace(0, 2, len(error_expl_25))   # posició en cm
 
 plt.plot(x_cm, error_expl_25,    '--o', markersize=1, label="Euler explícit $r=0{,}25$")
@@ -81,9 +81,13 @@ plt.plot(x_cm, errors_cranck_1,  '--o', markersize=1, label="Crank-Nicolson $r=1
 plt.plot(x_cm, errors_cranck_05, '--o', markersize=1, linewidth=1, label="Crank-Nicolson $r=0{,}5$")
 
 plt.xlabel("Posició x (cm)")
-plt.ylabel("Error (°C)")
-plt.title("Comparació d'errors")
-plt.grid(alpha=0.3)
-plt.legend(loc='center left', bbox_to_anchor=(1.02, 0.5))
+plt.ylabel("Error absolut (°C)")
+plt.legend(
+    loc="upper center",
+    bbox_to_anchor=(0.5, -0.18),  # Si queda massa a prop o lluny de l'etiqueta x, ajusta aquest valor
+    ncol=2,
+    frameon=True,
+)
 plt.tight_layout()
+plt.savefig("comparacio.png", dpi=300, bbox_inches="tight")
 plt.show()

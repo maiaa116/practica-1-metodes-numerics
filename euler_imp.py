@@ -60,16 +60,14 @@ TT2 = np.array(TT2)
 
 
 
-
+plt.figure(figsize=(8, 6))
 
 plt.plot(x*2,TT[dt-1,:]*Temperatura_0 + 36.5,color="red", label=r"Implícit, $r=1$")   
 plt.plot(x*2,TT2[dt2-1,:]*Temperatura_0 + 36.5, alpha=0.4, linestyle= "--", label=r"Implícit, $r=0.5$")
 plt.axvspan(0.375*2, 0.625*2, color='blue', alpha=0.2, label="Teixit malalt (0.5 cm)")  
 plt.axhline(50, color='red', linewidth=0.8, alpha=0.4, label="50 °C")
-plt.axhline(80, color='red', linewidth=0.8, alpha=0.4, label="80 °C")
 plt.xlabel("Posició x (cm)")
 plt.ylabel("Temperatura (ºC)")
-plt.title(f"Perfil de temperatura a t = 0,025s")   
 plt.legend()   
 plt.show()
 
@@ -99,8 +97,12 @@ error_graus2 = erro2 * Temperatura_0
 with open("errors_impl_05.txt", "w") as errors4:
     errors4.write(str(error_graus2))
 
-plt.plot(x, error_graus)
-plt.plot(x, error_graus2)
-plt.title("Gràfic error")
+plt.figure(figsize=(8, 6))
+plt.plot(x, error_graus*1e3, color="green", label="Euler implícit $r=1$")
+plt.plot(x, error_graus2*1e3, color="red", linestyle="--",label="Euler implícit $r=0.5$")
+plt.xlabel("Posició x (cm)")
+plt.ylabel("Error absolut ($10^{-3}$ ºC)")
+plt.legend()
+plt.tight_layout()
 plt.show()
 
