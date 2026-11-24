@@ -17,7 +17,7 @@ from euler_imp import error_graus as error_impl_1, error_graus2 as error_impl_05
 from cn_gs import error_graus_t1 as error_cn                          
 
 
-plt.show = show_original                       
+plt.show=show_original                       
 plt.close('all')                               
 
 plt.figure()
@@ -30,10 +30,10 @@ plt.legend(loc='best')
 plt.show()
 
 plt.figure()
-plt.plot(x*2, error_expl_25*1e3, color='green',  linestyle='-',  label=r"Explícit, $r=0.25$")
-plt.plot(x*2, error_impl_05*1e3, color='red',    linestyle='--', label=r"Implícit, $r=0.5$")
-plt.plot(x*2, error_impl_1*1e3,  color='orange', linestyle='-.', label=r"Implícit, $r=1$")
-plt.plot(x*2, error_cn*1e3,      color='blue',   linestyle=':',  label=r"Crank-Nicolson, $r=1$ i $0.5$")
+plt.plot(x*2, error_expl_25*1e3, color='green', linestyle='-', label=r"Explícit, $r=0.25$")
+plt.plot(x*2, error_impl_05*1e3, color='red', linestyle='--',label=r"Implícit, $r=0.5$")
+plt.plot(x*2, error_impl_1*1e3,  color='orange', linestyle='-.',label=r"Implícit, $r=1$")
+plt.plot(x*2, error_cn*1e3,      color='blue',linestyle=':', label=r"Crank-Nicolson, $r=1$ i $0.5$")
 plt.xlabel("Posició $x$ (cm)")
 plt.ylabel(r"Error absolut ($10^{-3}$ K)")
 plt.ylim(0, 12.5)                      
