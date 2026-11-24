@@ -51,7 +51,7 @@ X, Tt = np.meshgrid(x*2, t_real) #distància en cm i temps en segons
 
 
 ##GRAFIC QUE ENS DEMANEN
-h=int(0.025/(r*delta_x**2))#fila que correspont t=0.025
+h=round(0.025/(r*delta_x**2))#fila que correspont t=0.025
 plt.plot(x*2, T[h, :]*Temperatura_0 + 36.5, color='green', label=r"Explícit, $r=0.25$")
 plt.axvspan(0.375*2, 0.625*2, color='blue', alpha=0.2, label=r"Regió malalta")
 plt.axhline(50, color='red', linewidth=0.8, alpha=0.4, label="50 ºC")

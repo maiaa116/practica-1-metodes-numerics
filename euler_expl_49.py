@@ -39,7 +39,7 @@ T80=(80-36.5)/Temperatura_0
 T_C = T*Temperatura_0 + 36.5 #temperatura real
 
 for o in range (1000):
-    if T[o, 38] > T50: #mirem un rang molt gran i per quina temperatura el punt 36 dons superopr a T50
+    if 0.5 * (T[o, 37] + T[o, 38]) > T50: #mirem un rang molt gran i per quina temperatura el punt 36 dons superopr a T50
         temps_optim=o-1
         break
 temps_optim_real=temps_optim * r * delta_x**2 * t_0
@@ -50,7 +50,7 @@ X, Tt = np.meshgrid(x, t)
 
 
 ##GRAFIC QUE ENS DEMANEN
-h=int(0.025/(r*delta_x**2))#fila que correspont t=0.025
+h=round(0.025/(r*delta_x**2))#fila que correspont t=0.025
 plt.plot(x*2, T[h, :]*Temperatura_0 + 36.5, color='green', label=r"Explícit, $r=0.49$")
 plt.axvspan(0.375*2, 0.625*2, color='blue', alpha=0.2, label=r"Regió malalta")
 plt.axhline(50, color='red', linewidth=0.8, alpha=0.4, label="50 ºC")
@@ -124,13 +124,17 @@ def funcio_analitica(x,t,q=1, beta=0, N=1000):
     return np.array(resultat)
 
 #calculem ara per totes les x
-h=int(0.025/(r*delta_x**2))
-T_analitica=funcio_analitica(x,0.025) #calculem per totes les x amb una t determinada t posició 1000
+h=round(0.025/(r*delta_x**2))
+T_analitica=funcio_analitica(x,t[h]) #calculem per totes les x amb una t determinada t posició 1000
 error=np.abs(T[h, :]- T_analitica) # esto és l'error adimensional
 error_graus=error*Temperatura_0 
 with open("errors_expl_49.txt","w") as errors2:
     errors2.write(str(error_graus))
 
-plt.plot(x, error_graus)
-plt.title("Grafic error")
+plt.plot(x*2, error_graus*1e3, color='green', label=r"Explícit, $r={0{,}49}$")
+plt.xlabel("Posició $x$ (cm)")
+plt.ylabel(r"Error absolut ($10^{-3}$ K)")
+plt.title(r"Error respecte de l'analítica a $\hat{t}\approx 71$ s")
+plt.legend()
+plt.savefig("error_expl_49.png", dpi=300, bbox_inches="tight")
 plt.show()
