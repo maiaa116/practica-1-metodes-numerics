@@ -2,7 +2,7 @@ import ast
 import numpy as np
 import matplotlib.pyplot as plt
 
-#agafem l'error de cada mètode per comparar-los
+#agafem els errors de cada mètode del seu corresponent codi
 suma=0
 moduls_errors=[]
 
@@ -55,7 +55,7 @@ for i in range(len(errors_cranck_05)):
     suma=suma+(errors_cranck_05[i])**2
 moduls_errors.append(np.sqrt(suma))
 
-#comprovem quin té menor mòdul d'error
+#busquem el millor error
 
 metode=moduls_errors.index(np.min(moduls_errors))
 if metode==0:
@@ -71,7 +71,8 @@ if metode==4:
 if metode==5:
     print("el millor mètode és Cranck-Nicholson amb r=0.5")
 
-#representem aquests errors
+#representem junts tots els gràfics
+
 plt.figure(figsize=(6.5, 5.8))
 x_cm = np.linspace(0, 2, len(error_expl_25))   # posició en cm
 
@@ -84,7 +85,6 @@ plt.plot(x_cm, errors_cranck_05, '--o', markersize=1, linewidth=1, label="Crank-
 plt.tick_params(direction="in", top=True, right=True)
 plt.xlabel("Posició x (cm)")
 plt.ylabel("Error absolut (°C)")
-plt.legend(loc="upper center", bbox_to_anchor=(0.5, -0.18),ncol=2, frameon=True,fontsize=14) # Si queda massa a prop o lluny de l'etiqueta x, ajusta aquest valor
-
+plt.legend(loc="upper center", bbox_to_anchor=(0.5, -0.18),ncol=2, frameon=True,fontsize=14) 
 plt.tight_layout()
 plt.show()
