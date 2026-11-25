@@ -94,7 +94,7 @@ plt.show()
 
 
 
-#buscar temps òptim 
+#represetem per al temps òptim trobat abans
 
 plt.figure(figsize=(6.5, 5))
 plt.plot(x * 2, T_C[temps_optim, :], color="green")
@@ -136,7 +136,7 @@ plt.title("Grafic error")
 plt.show()
 
 
-#solució analítica per al porblema i comapracio amb la trobada amb el mètode
+#solució analítica per al problema i comparacio amb la trobada amb el mètode
 
 for o in range(len(t)):
     T_analitica_punt = funcio_analitica([x[38]], t[o])[0]
@@ -156,7 +156,7 @@ T_analitic_t_analitic_C = funcio_analitica(x, t[temps_optim_analitic]) * Tempera
 T_euler_t_euler_C = T_C[temps_optim, :]
 error_temps_C = np.abs(T_analitic_t_analitic_C - T_euler_t_euler_C)
 
-plt.figure(figsize=(6.5, 5))
+plt.figure(figsize=(6.5, 5)) #representem l'error entre aquests dos
 plt.plot(x * 2, error_temps_C / 1e-4, color="green")
 plt.xlabel("Posició x (cm)")
 plt.ylabel("Error absolut ($10^{-4}$ °C)")
@@ -169,7 +169,7 @@ pas = max(1, len(t_real) // 200)
 indexs = range(0, len(t_real), pas)
 
 # 1 (com avança la funcio)
-fig1, ax1 = plt.subplots(figsize=(7, 4.5)) #definim la funció per a un temps determinat
+fig1, ax1 = plt.subplots(figsize=(7, 4.5)) #primer definim la funció per a un temps concret
 linia, = ax1.plot(x * 2, T_C[0, :], color="green", linewidth=1.4, label="Temperatura T(x, t)")
 ax1.axhline(50, color="red", linestyle="--", linewidth=1, label="50 °C")
 ax1.axhline(80, color="red", linestyle="--", linewidth=1, label="80 °C")
@@ -180,9 +180,11 @@ ax1.set_ylabel("Temperatura (°C)")
 ax1.legend(loc="upper left", fontsize=9)
 ax1.grid(False)
 
+
 titol1 = ax1.set_title("Evolució de la temperatura  |  t = 0.00 s", fontsize=12, pad=12)
 fig1.subplots_adjust(top=0.86)
-#actualitzem la funció per a que canvie de temps
+
+#després anem actualitzant cada temps
 def actualitzar_funcio(k):
     linia.set_ydata(T_C[k, :])
     titol1.set_text(f"Evolució de la temperatura  |  t = {t_real[k]:.2f} s")
