@@ -169,7 +169,7 @@ pas = max(1, len(t_real) // 200)
 indexs = range(0, len(t_real), pas)
 
 # 1 (com avança la funcio)
-fig1, ax1 = plt.subplots(figsize=(7, 4.5))
+fig1, ax1 = plt.subplots(figsize=(7, 4.5)) #definim la funció per a un temps determinat
 linia, = ax1.plot(x * 2, T_C[0, :], color="green", linewidth=1.4, label="Temperatura T(x, t)")
 ax1.axhline(50, color="red", linestyle="--", linewidth=1, label="50 °C")
 ax1.axhline(80, color="red", linestyle="--", linewidth=1, label="80 °C")
@@ -182,7 +182,7 @@ ax1.grid(False)
 
 titol1 = ax1.set_title("Evolució de la temperatura  |  t = 0.00 s", fontsize=12, pad=12)
 fig1.subplots_adjust(top=0.86)
-
+#actualitzem la funció per a que canvie de temps
 def actualitzar_funcio(k):
     linia.set_ydata(T_C[k, :])
     titol1.set_text(f"Evolució de la temperatura  |  t = {t_real[k]:.2f} s")
