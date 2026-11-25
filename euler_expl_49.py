@@ -3,14 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.animation import FuncAnimation
 
-plt.rcParams.update({
-    "axes.titlesize": 16,   
-    "axes.labelsize": 14,   
-    "xtick.labelsize": 12,  
-    "ytick.labelsize": 12,  
-    "legend.fontsize": 12    
-})
-
+plt.rcParams.update({"axes.titlesize": 16, "axes.labelsize": 15, "xtick.labelsize": 12, "ytick.labelsize": 12, "legend.fontsize": 12})
 
 n=101
 r=0.49
@@ -54,10 +47,11 @@ h=round(0.025/(r*delta_x**2))#fila que correspont t=0.025
 plt.plot(x*2, T[h, :]*Temperatura_0 + 36.5, color='green', label=r"Explícit, $r=0.49$")
 plt.axvspan(0.375*2, 0.625*2, color='blue', alpha=0.2, label=r"Regió malalta")
 plt.axhline(50, color='red', linewidth=0.8, alpha=0.4, label="50 ºC")
-plt.xlabel("Posició x(cm)")
-plt.ylabel("Temperatura (ºC)")
+plt.xlabel("Posició x (cm)")
+plt.ylabel("Temperatura (°C)")
 #plt.title(f"Temperatura a t = 71 s amb $\Delta t={r}\Delta x^2$")
 plt.legend()
+plt.tick_params(direction="in", top=True, right=True)
 plt.show()
 
 '''

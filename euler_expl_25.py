@@ -8,13 +8,7 @@ from matplotlib.colors import LinearSegmentedColormap
 n=101
 r=0.25
 
-plt.rcParams.update({
-    "axes.titlesize": 16,   
-    "axes.labelsize": 14,   
-    "xtick.labelsize": 12,  
-    "ytick.labelsize": 12,  
-    "legend.fontsize": 12    
-})
+plt.rcParams.update({"axes.titlesize": 16, "axes.labelsize": 15, "xtick.labelsize": 12, "ytick.labelsize": 12, "legend.fontsize": 12})
 
 ro=1081
 c_v=3698
@@ -57,10 +51,11 @@ h=round(0.025/(r*delta_x**2))#fila que correspont t=0.025
 plt.plot(x*2, T[h, :]*Temperatura_0 + 36.5, color='green', label=r"Explícit, $r=0.25$")
 plt.axvspan(0.375*2, 0.625*2, color='blue', alpha=0.2, label=r"Regió malalta")
 plt.axhline(50, color='red', linewidth=0.8, alpha=0.4, label="50 ºC")
-plt.xlabel("Posició x(cm)")
-plt.ylabel("Temperatura (ºC)")
+plt.xlabel("Posició x (cm)")
+plt.ylabel("Temperatura (°C)")
 #plt.title(f"Temperatura a t =0.025s amb $\Delta t={r}\Delta x^2$")
 plt.legend()
+plt.tick_params(direction="in", top=True, right=True)
 plt.show()
 
 
@@ -70,9 +65,8 @@ ax = fig.add_subplot(111, projection='3d')
 surf = ax.plot_surface(X, Tt, T_C, cmap='inferno', rstride=10, cstride=1, linewidth=0)
 ax.plot_surface(X, Tt, np.full_like(X, 50), color='red',  alpha=0.25, rstride=100, cstride=20, linewidth=0)
 ax.plot_surface(X, Tt, np.full_like(X, 80), color='red', alpha=0.25, rstride=100, cstride=20, linewidth=0)
-
-
-
+ax.set_xticks([0, 0.5, 1, 1.5, 2])
+ax.set_yticks([0, 20, 40, 60])
 #Diferentes temperatures (eix y) per diferentes posicions (eix x)
 ax.set_xlabel("Posició x (cm)")
 ax.set_ylabel("Temps t (s)")
@@ -81,15 +75,35 @@ ax.set_title("Evolució de la temperatura (Euler explícit, r = 0.25)")
 fig.colorbar(surf, shrink=0.6, label="T (°C)")
 plt.show()
 
+
+# PLA 3D evolucio de la temperatura per la portada
+fig = plt.figure(figsize=(8, 6))
+ax = fig.add_subplot(111, projection='3d')
+surf = ax.plot_surface(X, Tt, T_C, cmap='inferno', rstride=10, cstride=1, linewidth=0)
+ax.plot_surface(X, Tt, np.full_like(X, 50), color='red',  alpha=0.25, rstride=100, cstride=20, linewidth=0)
+ax.plot_surface(X, Tt, np.full_like(X, 80), color='red', alpha=0.25, rstride=100, cstride=20, linewidth=0)
+ax.set_xticks([0, 0.5, 1, 1.5, 2])
+ax.set_yticks([0, 20, 40, 60])
+ax.set_zticks([40, 60, 80])
+ax.set_xlabel("x (cm)")
+ax.set_ylabel("t (s)")
+#ax.set_zlabel("T (°C)")
+#ax.set_title("Evolució de la temperatura (Euler explícit, r = 0.25)")
+fig.colorbar(surf, shrink=0.6, label="T (°C)")
+plt.show()
+
+
+
 #buscar temps òptim 
 
 plt.figure(figsize=(6.5, 5))
 plt.plot(x * 2, T_C[temps_optim, :], color="green")
 plt.axvspan(0.375 * 2, 0.625 * 2, color='blue', alpha=0.2, label=r"Regió malalta")
-plt.axhline(50, color='red', linewidth=0.8, alpha=0.4, label="50 ºC")
+plt.axhline(50, color='red', linewidth=0.8, alpha=0.4, label="50 °C")
 plt.xlabel("Posició x (cm)")
-plt.ylabel("Temperatura (ºC)")
+plt.ylabel("Temperatura (°C)")
 plt.legend()
+plt.tick_params(direction="in", top=True, right=True)
 plt.tight_layout()
 plt.show()
 
@@ -121,19 +135,7 @@ plt.plot(x, error_graus)
 plt.title("Grafic error")
 plt.show()
 
-'''# error temps optim
-T_analitica_optim = funcio_analitica(x, t[temps_optim])
-error_optim = np.abs(T[temps_optim, :] - T_analitica_optim)
-error_graus_optim = error_optim * Temperatura_0
 
-plt.figure(figsize=(6.5, 5))
-plt.plot(x * 2, error_graus_optim / 1e-4, color="green")
-plt.xlabel("Posició x (cm)")
-plt.ylabel("Error absolut ($10^{-4}$ ºC)")
-
-plt.tight_layout()
-plt.show()
-'''
 #solució analítica per al porblema i comapracio amb la trobada amb el mètode
 
 for o in range(len(t)):
@@ -157,7 +159,8 @@ error_temps_C = np.abs(T_analitic_t_analitic_C - T_euler_t_euler_C)
 plt.figure(figsize=(6.5, 5))
 plt.plot(x * 2, error_temps_C / 1e-4, color="green")
 plt.xlabel("Posició x (cm)")
-plt.ylabel("Error absolut ($10^{-4}$ ºC)")
+plt.ylabel("Error absolut ($10^{-4}$ °C)")
+plt.tick_params(direction="in", top=True, right=True)
 plt.tight_layout()
 plt.show()
 
@@ -194,15 +197,7 @@ anim_funcio.save("animacio_temperatura.gif", writer="pillow", fps=15, dpi=150)
 blau_roig = LinearSegmentedColormap.from_list("blau_roig", ["blue", "red"])
 
 fig2, ax2 = plt.subplots(figsize=(4.5, 4.5))
-mapa = ax2.imshow(
-    T_C[0:1, :].T,
-    aspect="auto",
-    origin="lower",
-    extent=[0, 1, 0, 2],
-    cmap=blau_roig,
-    vmin=36.5,
-    vmax=np.max(T_C),
-)
+mapa = ax2.imshow(T_C[0:1, :].T, aspect="auto", origin="lower", extent=[0, 1, 0, 2], cmap=blau_roig, vmin=36.5, vmax=np.max(T_C))
 ax2.set_xticks([])
 ax2.set_ylabel("Posició x (cm)")
 ax2.grid(False)
